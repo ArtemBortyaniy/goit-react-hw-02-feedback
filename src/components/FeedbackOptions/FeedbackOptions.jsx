@@ -1,10 +1,9 @@
 // import { css } from './FeedbackOptions.module.scss'
 
 export const FeedbackOptions = ({options, onLeaveFeedback}) => {
-    // console.log(options);
     return (
         <div>
-            <ul>
+            <ul>        
                 {options.map(option => {
                     return (
                         <button 

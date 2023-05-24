@@ -6,9 +6,9 @@ import { Section } from "./Section/Section";
 
 class App extends Component {
   state = {
-    good: 10,
-    neutral: 20,
-    bad: 15
+    good: 0,
+    neutral: 0,
+    bad: 0
   }
 
   countTotalFeedback({ good, neutral, bad }) {
@@ -19,9 +19,8 @@ class App extends Component {
     return `${Math.round((good * 100) / this.countTotalFeedback(this.state))}%`
   }
 
-  onLeaveFeedback(e) {
-    console.log(e);
-    this.setState({e : this.state[e] + 1});
+  onLeaveFeedback =(option)=> {
+    this.setState(prevState => ({[option] : prevState[option] + 1}));
   }
   
   render() {
@@ -38,8 +37,12 @@ class App extends Component {
             </FeedbackOptions>}
         ></Section>
         <Section 
-          title={Statistics}
-          children={<Statistics 
+          title={'Statistics'} 
+          children={this.countTotalFeedback(this.state) === 0
+             ?
+             <Notification message="There is no feedback"></Notification> 
+             : 
+             <Statistics 
             good={good} 
             neutral={neutral} 
             bad={bad} 
@@ -48,8 +51,6 @@ class App extends Component {
             </Statistics>}
         >
         </Section>
-        
-        <Notification message="There is no feedback"></Notification>
       </div>
     )
   }
