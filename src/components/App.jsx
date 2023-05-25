@@ -11,12 +11,12 @@ class App extends Component {
     bad: 0
   }
 
-  countTotalFeedback({ good, neutral, bad }) {
-    return good + neutral + bad;
+  countTotalFeedback() {
+    return Object.values(this.state).reduce((accumulator, value) => accumulator + value, 0);
   }
 
-  countPositiveFeedbackPercentage(good) {
-    return `${Math.round((good * 100) / this.countTotalFeedback(this.state))}%`
+  countPositiveFeedbackPercentage() {
+    return `${Math.round((this.state.good * 100) / this.countTotalFeedback())}%`
   }
 
   onLeaveFeedback =(option)=> {
@@ -30,15 +30,14 @@ class App extends Component {
     return (
       <div>
         <Section 
-          title={'Please leave feedback'} 
-          children={<FeedbackOptions 
+          title={'Please leave feedback'} >
+            <FeedbackOptions 
             options={options} 
             onLeaveFeedback={this.onLeaveFeedback}>
-            </FeedbackOptions>}
-        ></Section>
-        <Section 
-          title={'Statistics'} 
-          children={this.countTotalFeedback(this.state) === 0
+            </FeedbackOptions>
+          </Section>
+        <Section title={'Statistics'} >
+          {this.countTotalFeedback() === 0
              ?
              <Notification message="There is no feedback"></Notification> 
              : 
@@ -46,10 +45,9 @@ class App extends Component {
             good={good} 
             neutral={neutral} 
             bad={bad} 
-            total={this.countTotalFeedback(this.state)} 
-            positivePercentage={this.countPositiveFeedbackPercentage(this.state.good)}>
+            total={this.countTotalFeedback()} 
+            positivePercentage={this.countPositiveFeedbackPercentage()}>
             </Statistics>}
-        >
         </Section>
       </div>
     )
