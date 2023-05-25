@@ -1,0 +1,19 @@
+.list {
+    gap: 10px;
+    display: flex;
+    padding: 0;
+}
+
+.item {
+    list-style-type : none;
+}
+
+.optionBtn {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 3px;
+    cursor: pointer;
+    width: 70px;
+}
